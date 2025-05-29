@@ -1,0 +1,17 @@
+import { router } from './router/routes.js';
+import express, { json } from "express";
+import http from "http";
+import cors from "cors";
+
+
+export const app = express();
+app.use(json());
+app.disable("x-powered-by"); // --> Deshabilitar el header x-powered-by
+app.use(cors());
+
+
+
+app.use("/",router);
+
+const port = process.env.PORT || 3000;
+http.createServer(app).listen(port);
