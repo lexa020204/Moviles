@@ -13,7 +13,7 @@ class Articulos extends StatefulWidget {
 
 class _ArticulosState extends State<Articulos> {
   Future<Widget> _obtenerArticulos() async{
-    String sUrl = "https://api.npoint.io/237a0d1ac8530064cc04";
+    String sUrl = "https://api.npoint.io/88abc1f40845fe530fd4";
 
     try{  
       final oRespuesta = await http.get(
@@ -27,7 +27,7 @@ class _ArticulosState extends State<Articulos> {
       ListView lista =  ListView.separated(
       padding: const EdgeInsets.all(20),
       itemBuilder: (BuildContext context, int index) {
-        return ItemArticulo( urlImagen: awArticulos[index]['urlimagen'],
+        return ItemArticulo( urlImagen: 'https://i.pinimg.com/564x/8f/7b/09/8f7b0965282e888b1bc8ef089880f447.jpg',
           articulo: awArticulos[index]['articulo'],
           precio: int.parse(awArticulos[index]['precio'].toString()),
           descuento: int.parse(awArticulos[index]['descuento'].toString()),

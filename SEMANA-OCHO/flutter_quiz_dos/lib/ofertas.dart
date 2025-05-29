@@ -12,10 +12,10 @@ class Ofertas extends StatefulWidget {
 }
 
 class _OfertasState extends State<Ofertas> {
-  Future<Widget> _obtenerArticulos() async{
-    String sUrl = "https://api.npoint.io/237a0d1ac8530064cc04";
+  Future<Widget> _obtenerArticulos() async {
+    String sUrl = "https://api.npoint.io/88abc1f40845fe530fd4";
 
-    try{  
+    try {
       final oRespuesta = await http.get(
         Uri.parse(sUrl),
         headers: {'Content-Type': 'application/json; charset=UTF-8'},
@@ -27,30 +27,33 @@ class _OfertasState extends State<Ofertas> {
           .where((articulo) => int.parse(articulo['descuento'].toString()) > 0)
           .toList();
 
-      
       if (awArticulosConDescuento.isEmpty) {
         return const Center(
           child: Text("No hay artículos con descuento."),
         );
       }
 
-      ListView lista =  ListView.separated(
-      padding: const EdgeInsets.all(20),
-      itemBuilder: (BuildContext context, int index) {
-          return ItemArticulo( urlImagen: awArticulosConDescuento[index]['urlimagen'],
-          articulo: awArticulosConDescuento[index]['articulo'],
-          precio: int.parse(awArticulosConDescuento[index]['precio'].toString()),
-          descuento: int.parse(awArticulosConDescuento[index]['descuento'].toString()),
-          valoracion: double.parse(awArticulosConDescuento[index]['valoracion'].toString()),
-          calificaciones: int.parse(awArticulos[index]['calificaciones'].toString()),
+      ListView lista = ListView.separated(
+        padding: const EdgeInsets.all(20),
+        itemBuilder: (BuildContext context, int index) {
+          return ItemArticulo(
+            urlImagen: 'https://i.pinimg.com/564x/8f/7b/09/8f7b0965282e888b1bc8ef089880f447.jpg',
+            articulo: awArticulosConDescuento[index]['articulo'],
+            precio:
+                int.parse(awArticulosConDescuento[index]['precio'].toString()),
+            descuento: int.parse(
+                awArticulosConDescuento[index]['descuento'].toString()),
+            valoracion: double.parse(
+                awArticulosConDescuento[index]['valoracion'].toString()),
+            calificaciones:
+                int.parse(awArticulos[index]['calificaciones'].toString()),
           );
-      }, 
-      separatorBuilder: (BuildContext context, int index) => const Divider(), 
-      itemCount: awArticulosConDescuento.length,
+        },
+        separatorBuilder: (BuildContext context, int index) => const Divider(),
+        itemCount: awArticulosConDescuento.length,
       );
       return lista;
-    }
-    catch(e){
+    } catch (e) {
       const Center(
         child: Text("Error al enviar/recibir solicitud"),
       );
@@ -60,7 +63,6 @@ class _OfertasState extends State<Ofertas> {
     );
   }
 
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -69,7 +71,7 @@ class _OfertasState extends State<Ofertas> {
       ),
       body: FutureBuilder<Widget>(
         future: _obtenerArticulos(),
-        builder: (BuildContext context, AsyncSnapshot<Widget> snapshot){
+        builder: (BuildContext context, AsyncSnapshot<Widget> snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const Center(
               child: CircularProgressIndicator(),
@@ -84,7 +86,6 @@ class _OfertasState extends State<Ofertas> {
           return const Center(
             child: Text("Error al cargar los artículos."),
           );
-
         },
       ),
     );

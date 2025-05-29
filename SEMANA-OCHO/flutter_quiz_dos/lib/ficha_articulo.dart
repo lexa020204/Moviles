@@ -29,6 +29,7 @@ class _FichaArticuloState extends State<FichaArticulo> {
           padding: const EdgeInsets.all(20),
           child: Column(
             mainAxisSize: MainAxisSize.min,
+            mainAxisAlignment: MainAxisAlignment.end,
             children: [
               Image(
                 image: NetworkImage(urlImagen),
@@ -46,42 +47,65 @@ class _FichaArticuloState extends State<FichaArticulo> {
               if (descuento > 0)
                 Column(children: [
                   Row(children: [
-                  Text("\$${precio - descuento}"),
-                  Text(
-                    " $descuento% OFF",
-                    style: const TextStyle(
-                      color: Colors.green,
+                    Text("\$${precio - (descuento * precio / 100)}"),
+                    Text(
+                      " $descuento% OFF",
+                      style: const TextStyle(color: Colors.green, fontSize: 14),
                     ),
-                  ),
                   ]),
-                 Text(" Antes \$$precio ", style: TextStyle(color: Colors.grey, fontSize: 8),)
-                  
+                  Row(
+                    children: [
+                      Text(
+                        " Antes \$$precio ",
+                        style: const TextStyle(
+                          color: Colors.grey,
+                          fontSize: 12,
+                        ),
+                      )
+                    ],
+                  )
                 ]),
-                
-              if (descuento == 0) Text("\$$precio"),
+              if (descuento == 0)
+                Row(
+                  children: [
+                    Text(
+                      "\$$precio",
+                      style: TextStyle(fontSize: 15),
+                    ),
+                  ],
+                ),
               const SizedBox(height: 5),
-              RatingBar.builder(
-                initialRating: dValoracionFinal,
-                minRating: 0,
-                direction: Axis.horizontal,
-                allowHalfRating: true,
-                itemCount: 5,
-                itemSize: 20,
-                itemPadding: const EdgeInsets.symmetric(horizontal: 4.0),
-                itemBuilder: (context, _) => const Icon(
-                  Icons.star,
-                  color: Colors.amber,
-                ),
-                onRatingUpdate: (rating) {
-                  print(rating);
-                },
-              ),
-              Text(
-                "$calificaciones calificaciones",
-                style: const TextStyle(
-                  fontSize: 12,
-                ),
-              ),
+              Row(
+                children: [
+                  Text(
+                    "$dValoracionFinal",
+                    style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
+                  ),
+                  const SizedBox(
+                    width: 10,
+                  ),
+                  Column(
+                    children: [
+                      RatingBarIndicator(
+                        rating: dValoracionFinal,
+                        itemBuilder: (context, index) => const Icon(
+                          Icons.star,
+                          color: Colors.amber,
+                        ),
+                        itemCount: 5,
+                        itemSize: 20,
+                        direction: Axis.horizontal,
+                      ),
+                      Text(
+                        "$calificaciones calificaciones",
+                        style: const TextStyle(
+                          fontSize: 12,
+                        ),
+                      ),
+                    ],
+                  )
+                ],
+              )
             ],
           ),
         ));
