@@ -1,0 +1,12 @@
+{
+  "nombre": "Ali",
+  "usuario": "admin2@gmail.com",
+  "contrasena": "admin56542"
+}
+
+
+{
+  "nombre": "Alexandra",
+  "usuario": "admin@gmail.com",
+  "contrasena": "admin1234"
+}
